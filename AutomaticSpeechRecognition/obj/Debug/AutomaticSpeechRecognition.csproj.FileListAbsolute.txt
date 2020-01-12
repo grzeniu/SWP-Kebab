@@ -1,0 +1,8 @@
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\obj\Debug\AutomaticSpeechRecognition.csprojAssemblyReference.cache
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\obj\Debug\AutomaticSpeechRecognition.csproj.CoreCompileInputs.cache
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\bin\Debug\AutomaticSpeechRecognition.dll
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\bin\Debug\AutomaticSpeechRecognition.pdb
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\bin\Debug\Microsoft.Speech.dll
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\obj\Debug\AutomaticSpeechRecognition.csproj.CopyComplete
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\obj\Debug\AutomaticSpeechRecognition.dll
+C:\Users\Grzesiek\Desktop\swp\p\Kebab\AutomaticSpeechRecognition\obj\Debug\AutomaticSpeechRecognition.pdb
