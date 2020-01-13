@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Kebab
 {
-    class Filled
+    internal class Filled
     {
-        public Dictionary<String, String> ConditionsDictionary;
+        public Dictionary<string, string> ConditionsDictionary;
 
         public Filled()
         {
-            ConditionsDictionary = new Dictionary<String, String>();
+            ConditionsDictionary = new Dictionary<string, string>();
         }
-        public String Execute(String recognizedSpeech)
+        public string Execute(string recognizedSpeech)
         {
-            if (!ConditionsDictionary.ContainsKey(recognizedSpeech))
-                return ConditionsDictionary["default"];
-            else
-                return ConditionsDictionary[recognizedSpeech];
+            return !ConditionsDictionary.ContainsKey(recognizedSpeech) ? ConditionsDictionary["default"] : ConditionsDictionary[recognizedSpeech];
         }
     }
 }

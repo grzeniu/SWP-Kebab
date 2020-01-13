@@ -1,18 +1,17 @@
 ﻿using System;
-using AutomaticSpeechRecognition;
 using System.Collections.Generic;
 using System.Linq;
-using TextToSpeech;
-using System.Windows.Threading;
 using System.Windows;
+using AutomaticSpeechRecognition;
+using TextToSpeech;
 
 namespace Kebab
 {
-    public partial class TextHandler : Window, Handler
+    public partial class TextHandler : Window, IHandler
     {
         private const double ConfidenceThreshold = 0.4;
         private bool _initiative = true;
-        private readonly Order _order= new Order();
+        private readonly Order _order = new Order();
         private Speaker _speaker;
         private SpeechRecognition _speechRecognition;
         private MainWindow _mainWindow;
@@ -24,41 +23,41 @@ namespace Kebab
             _mainWindow = mainWindow;
         }
 
-        public void Handle(RecognizedText result)
+        public void Handle(RecognizedText text)
         {
-                if (result.Confidence >= ConfidenceThreshold)
+            if (text.Confidence >= ConfidenceThreshold)
+            {
+                Console.WriteLine(text.Text);
+                if (_initiative)
                 {
-                    Console.WriteLine(result.Text);
-                    if (_initiative)
-                    {
-                        ProcessHelpMessages(result.TextList);
-                        ProcessOrder(result.TextList);
-                        FillKnownProperties(result.TextList);
-                        _initiative = false;
-                    }
-                    else
-                    {
-                        FillKnownProperties(result.TextList);
-                        ProcessHelpMessages(result.TextList);
-                        ProcessOrder(result.TextList);
-
-                    }
-
-                    if (_order.OrderReady())
-                    {
-                        CalculateThePrice();
-                        _mainWindow.SetLabels(_order);
-                        _speaker.SpeakAsync($"Thank you for the order. It will be {_order.Price} dollars. Have a nice day!");
-                        //_speechSynthesizer.SpeakAsync("Dziękuję za zamówienie");
-                        _speechRecognition.StopSpeech();
-                    }
-
+                    ProcessHelpMessages(text.TextList);
+                    ProcessOrder(text.TextList);
+                    FillKnownProperties(text.TextList);
+                    _initiative = false;
                 }
                 else
                 {
-                    _speaker.SpeakAsync($"Sorry I didn't get that.");
+                    FillKnownProperties(text.TextList);
+                    ProcessHelpMessages(text.TextList);
+                    ProcessOrder(text.TextList);
+
                 }
+
+                if (_order.OrderReady())
+                {
+                    CalculateThePrice();
+                    _mainWindow.SetLabels(_order);
+                    _speaker.SpeakAsync($"Thank you for the order. It will be {_order.Price} dollars. Have a nice day!");
+                    //_speechSynthesizer.SpeakAsync("Dziękuję za zamówienie");
+                    _speechRecognition.StopSpeech();
+                }
+
             }
+            else
+            {
+                _speaker.SpeakAsync($"Sorry I didn't get that.");
+            }
+        }
 
         private void CalculateThePrice()
         {
@@ -99,17 +98,14 @@ namespace Kebab
             if (textList.Select(el => el).Intersect(Info.Cakes).ToList().Count == 0)
             {
                 _speaker.SpeakAsync("And what kind of cake do you prefer?");
-                //_speechSynthesizer.SpeakAsync("Proszę podać rodzaj ciasta");
             }
             else if (textList.Select(el => el).Intersect(Info.Dipps).ToList().Count == 0)
             {
                 _speaker.SpeakAsync("How about the sauce?");
-                //_speechSynthesizer.SpeakAsync("Proszę podać sos");
             }
             else if (textList.Select(el => el).Intersect(Info.PizzaChoices).ToList().Count == 0)
             {
                 _speaker.SpeakAsync("Which pizza? For now we have only hawaiian or peperoni");
-                //_speechSynthesizer.SpeakAsync("Jaka będzie picca?");
             }
         }
 
@@ -142,7 +138,6 @@ namespace Kebab
             if (textList.Contains("Stop"))
             {
                 _speechRecognition.StopSpeech();
-                //_speechSynthesizer.SpeakAsync("Dziękuję za zamówienie!");
                 CalculateThePrice();
                 _mainWindow.SetLabels(_order);
                 _speaker.SpeakAsync("It was a pleasure to serve you. Have a nice day!");
@@ -152,14 +147,12 @@ namespace Kebab
             if (textList.Contains("Help"))
             {
                 _speaker.SpeakAsync("Please order a pizza!");
-                //_speechSynthesizer.SpeakAsync("Zamów piccce!");
                 return;
             }
 
             if (textList.Contains("Reset"))
             {
                 _speaker.SpeakAsync("Resetting the order! You can order new one now.");
-                //_speechSynthesizer.SpeakAsync("Anulowano zamówienie!");
                 _order.ResetPizza();
                 _mainWindow.SetLabels(_order);
             }
@@ -170,20 +163,17 @@ namespace Kebab
             if (string.IsNullOrEmpty(_order.Cake))
             {
                 _speaker.SpeakAsync("What kind of cake?");
-                //_speechSynthesizer.SpeakAsync("Jakie ciasto?");
                 return;
             }
 
             if (string.IsNullOrEmpty(_order.Dip))
             {
-                //_speechSynthesizer.SpeakAsync("Jaki sos?");
                 _speaker.SpeakAsync("Which sauce?");
                 return;
             }
 
             if (string.IsNullOrEmpty(_order.Choice))
             {
-                //_speechSynthesizer.SpeakAsync("Jaka pizza?");
                 _speaker.SpeakAsync("Which pizza?");
             }
 

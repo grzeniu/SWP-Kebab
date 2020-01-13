@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Speech.Synthesis;
+﻿using Microsoft.Speech.Synthesis;
 
 namespace TextToSpeech
 {
@@ -12,12 +11,12 @@ namespace TextToSpeech
             _speechSynthesizer.SetOutputToDefaultAudioDevice();
         }
 
-        public void Speak(String textToSpeach)
+        public void Speak(string textToSpeach)
         {
             _speechSynthesizer.Speak(textToSpeach);
         }
 
-        public void SpeakAsync(String textToSpeach)
+        public void SpeakAsync(string textToSpeach)
         {
             _speechSynthesizer.SpeakAsync(textToSpeach);
         }

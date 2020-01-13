@@ -1,18 +1,16 @@
-﻿using System;
-
-namespace Kebab
+﻿namespace Kebab
 {
-    class Field
+    internal class Field
     {
-        public String Name { get; set; }
-        public String GrammarXmlFile { get; set; }
+        public string Name { get; set; }
+        public string GrammarXmlFile { get; set; }
         public Prompt NoMatch { get; set; }
         public Prompt Prompt { get; set; }
         public Filled Filled { get; set; }
 
-        public Field(String Name)
+        public Field(string name)
         {
-            this.Name = Name;
+            Name = name;
         }
 
         public void ExecuteField()

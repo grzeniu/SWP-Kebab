@@ -1,14 +1,10 @@
-﻿using System;
-
-namespace Kebab
+﻿namespace Kebab
 {
-    class Prompt
+    internal class Prompt
     {
-        public String Message { get; set; }
+        public string Message { get; set; }
 
-        public Prompt() { }
-
-        public Prompt(String message)
+        public Prompt(string message)
         {
             Message = message;
         }

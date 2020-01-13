@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace AutomaticSpeechRecognition
+﻿namespace AutomaticSpeechRecognition
 {
-    public interface Handler
+    public interface IHandler
     {
         void Handle(RecognizedText text);
     }

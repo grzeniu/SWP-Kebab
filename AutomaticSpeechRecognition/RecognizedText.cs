@@ -1,38 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AutomaticSpeechRecognition
 {
     public class RecognizedText
     {
         //TODO replace var
-        private String _text;
-        private List<String> _textList;
-        private float _confidence;
 
-        public RecognizedText(String text, List<String> textList, float confidence)
+        public RecognizedText(string text, List<string> textList, float confidence)
         {
-            _text = text;
-            _textList = textList;
-            _confidence = confidence;
+            Text = text;
+            TextList = textList;
+            Confidence = confidence;
         }
 
-        public string Text
-        {
-            get => _text;
-        }
+        public string Text { get; }
 
-        public List<String> TextList
-        {
-            get => _textList;
-        }
+        public List<string> TextList { get; }
 
-        public float Confidence
-        {
-            get => _confidence;
-        }
+        public float Confidence { get; }
     }
 }

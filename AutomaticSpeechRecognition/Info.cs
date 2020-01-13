@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AutomaticSpeechRecognition
 {
@@ -15,19 +11,6 @@ namespace AutomaticSpeechRecognition
             "Stop",
             "Reset"
         };
-
-
-
-        //public static List<string> AdditionalIngredience = new List<string>
-        //{
-        //    "Papryka",
-        //    "Ser",
-        //    "Oliwki",
-        //    "Kukurydza",
-        //    "Kurczak",
-        //    "Bez dodatków",
-        //    "Bez"
-        //};
 
         public static readonly IEnumerable<string> PizzaChoices = new List<string>(4)
         {

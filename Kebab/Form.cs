@@ -1,16 +1,14 @@
-﻿using System;
-
-namespace Kebab
+﻿namespace Kebab
 {
-    class Form
+    internal class Form
     {
         public Field Field { get; set; }
         public Block Block { get; set; }
-        public String Id { get; set; }
+        public string Id { get; set; }
 
-        public Form(String Id)
+        public Form(string id)
         {
-            this.Id = Id;
+            Id = id;
         }
     }
 }
