@@ -52,5 +52,8 @@
     <Compile Include="RecognizedText.cs" />
     <Compile Include="SpeechRecognition.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Grammar\Grammar.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

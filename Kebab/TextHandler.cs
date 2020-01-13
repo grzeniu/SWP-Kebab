@@ -21,6 +21,7 @@ namespace Kebab
         {
             _speaker = speaker;
             _speechRecognition = speechRecognition;
+            _mainWindow = mainWindow;
         }
 
         public void Handle(RecognizedText result)

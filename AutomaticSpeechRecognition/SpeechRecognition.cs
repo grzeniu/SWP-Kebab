@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Speech.Recognition;
 using System.Linq;
+using Microsoft.Speech.Recognition.SrgsGrammar;
 
 namespace AutomaticSpeechRecognition
 {
@@ -22,11 +23,18 @@ namespace AutomaticSpeechRecognition
             _speechRecognitionEngine.InitialSilenceTimeout += TimeSpan.FromSeconds(10);
             _speechRecognitionEngine.SetInputToDefaultAudioDevice();
             // _speechSynthesizer.SelectVoice("Microsoft Server Speech Text to Speech Voice (pl-PL, Paulina)");
+            //_grammarFactory.AddGrammars(_speechRecognitionEngine);
+
+            //TODO change to relative path
+            //Grammar grammar = new Grammar("C:\\Users\\Grzesiek\\Desktop\\swp\\SWP-Kebab\\AutomaticSpeechRecognition\\Grammar\\Grammar.xml", "rootRule");
+            string GrammarFilePath = "C:\\Users\\Grzesiek\\Desktop\\swp\\SWP-Kebab\\AutomaticSpeechRecognition\\Grammar\\Grammar.xml";
+            SrgsDocument grammarDoc = new SrgsDocument(GrammarFilePath);
+            Grammar grammar = new Grammar(grammarDoc);
+            //grammar.Enabled = true;
+            _speechRecognitionEngine.LoadGrammar(grammar);
 
             _speechRecognitionEngine.SpeechRecognized += KebabManager;
-            _speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
-
-            _grammarFactory.AddGrammars(_speechRecognitionEngine);
+            _speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple); 
         }
 
         private void KebabManager(object sender, SpeechRecognizedEventArgs e)

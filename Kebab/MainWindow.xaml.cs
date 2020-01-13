@@ -16,6 +16,7 @@ namespace Kebab
 
         public MainWindow()
         {
+            _handler = new TextHandler();
             InitializeComponent();
             _worker.DoWork += Run;
             _worker.RunWorkerAsync();
@@ -23,8 +24,6 @@ namespace Kebab
 
         private void Run(object sender, DoWorkEventArgs e)
         {
-            _handler = new TextHandler();
-
             var speaker = new Speaker();
             speaker.Initialize();
 
