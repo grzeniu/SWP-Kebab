@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Speech.Recognition;
+using Microsoft.Speech.Recognition.SrgsGrammar;
 
 namespace AutomaticSpeechRecognition
 {
@@ -11,7 +12,7 @@ namespace AutomaticSpeechRecognition
         private readonly GrammarBuilder _cakesGrammarBuilder = new GrammarBuilder(new Choices(Info.Cakes.ToArray()));
         private readonly GrammarBuilder _dipsGrammarBuilder = new GrammarBuilder(new Choices(Info.Dipps.ToArray()));
 
-        public void AddGrammars(SpeechRecognitionEngine engine)
+        public void BuildGrammars(SpeechRecognitionEngine engine)
         {
             BuildSingleGrammars(engine);
             BuildDoubleGrammars(engine);
@@ -19,6 +20,11 @@ namespace AutomaticSpeechRecognition
 
         }
 
+        public Grammar BuildXmlGrammar(string grammarFilePath)
+        {
+            var grammarDoc = new SrgsDocument(grammarFilePath);
+            return new Grammar(grammarDoc);
+        }
         private void BuildSingleGrammars(SpeechRecognitionEngine engine)
         {
             Console.WriteLine(engine.RecognizerInfo.Culture);

@@ -1,50 +1,47 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using Microsoft.Speech.Recognition;
-using Microsoft.Speech.Recognition.SrgsGrammar;
 
 namespace AutomaticSpeechRecognition
 {
-    public class SpeechRecognition
+    public class SpeechRecognition : ISpeechRecognition
     {
         private readonly GrammarFactory _grammarFactory = new GrammarFactory();
         private SpeechRecognitionEngine _speechRecognitionEngine;
-        private IHandler _handler;
-
-        public void Initialize(IHandler handler)
+        private readonly ITextAnalyzer _textAnalyzer;
+        private const string GrammarFilePath = @"C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\AutomaticSpeechRecognition\Grammar\Grammar.xml";
+        public SpeechRecognition(ITextAnalyzer textAnalyzer)
         {
-            _handler = handler;
-
+            _textAnalyzer = textAnalyzer;
+            Initialize();
+        }
+        private void Initialize()
+        {
             var culture = new CultureInfo("en-US");
             _speechRecognitionEngine = new SpeechRecognitionEngine(culture);
-
             _speechRecognitionEngine.SetInputToDefaultAudioDevice();
-            // _speechSynthesizer.SelectVoice("Microsoft Server Speech Text to Speech Voice (pl-PL, Paulina)");
-            //_grammarFactory.AddGrammars(_speechRecognitionEngine);
-
-            //TODO change to relative path
-            //Grammar grammar = new Grammar("C:\\Users\\Grzesiek\\Desktop\\swp\\SWP-Kebab\\AutomaticSpeechRecognition\\Grammar\\Grammar.xml", "rootRule");
-            string grammarFilePath = "C:\\Users\\Grzesiek\\Desktop\\swp\\SWP-Kebab\\AutomaticSpeechRecognition\\Grammar\\Grammar.xml";
-            SrgsDocument grammarDoc = new SrgsDocument(grammarFilePath);
-            Grammar grammar = new Grammar(grammarDoc);
-            //grammar.Enabled = true;
-            _speechRecognitionEngine.LoadGrammar(grammar);
-
+            InitializeGrammars();
             _speechRecognitionEngine.SpeechRecognized += KebabManager;
             _speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
         }
 
-        private void KebabManager(object sender, SpeechRecognizedEventArgs e)
+        private void InitializeGrammars()
+        {
+            _grammarFactory.BuildGrammars(_speechRecognitionEngine);
+
+            //TODO change to relative path
+            //Grammar grammar = new Grammar("C:\\Users\\Grzesiek\\Desktop\\swp\\SWP-Kebab\\AutomaticSpeechRecognition\\Grammar\\Grammar.xml", "rootRule");
+            Grammar xmlGrammar = _grammarFactory.BuildXmlGrammar(GrammarFilePath);
+            //grammar.Enabled = true;
+            _speechRecognitionEngine.LoadGrammar(xmlGrammar);
+        }
+        public void KebabManager(object sender, SpeechRecognizedEventArgs e)
         {
             if (!IsSpeechOn) return;
-            var text = e.Result.Text;
-            var textList = text.Split(' ').ToList();
-            var confidence = e.Result.Confidence;
-            Console.WriteLine($@"ROZPOZNANO (wiarygodność: {e.Result.Confidence:0.000}): '{text}'");
+            var result = new RecognizedText(e);
 
-            RecognizedText result = new RecognizedText(text, textList, confidence);
-            _handler.Handle(result);
+            Console.WriteLine($@"ROZPOZNANO (wiarygodność: {result.Confidence:0.000}): '{result.Text}'");
+            _textAnalyzer.AnalyzeText(result);
         }
 
         public void StopSpeech() => IsSpeechOn = false;

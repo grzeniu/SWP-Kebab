@@ -2,7 +2,6 @@
 
 namespace AutomaticSpeechRecognition
 {
-    //TODO remove
     public static class Info
     {
         public static readonly IEnumerable<string> DefaultCommands = new List<string>(3)

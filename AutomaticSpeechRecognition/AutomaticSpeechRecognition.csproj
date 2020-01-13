@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrammarFactory.cs" />
-    <Compile Include="Handler.cs" />
+    <Compile Include="ISpeechRecognition.cs" />
+    <Compile Include="ITextAnalyzer.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecognizedText.cs" />

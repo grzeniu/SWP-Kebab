@@ -2,23 +2,27 @@
 
 namespace TextToSpeech
 {
-    public class Speaker
+    public class Speaker : ISpeaker
     {
         private readonly SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
 
-        public void Initialize()
+        public Speaker()
+        {
+            Initialize();
+        }
+        private void Initialize()
         {
             _speechSynthesizer.SetOutputToDefaultAudioDevice();
         }
 
-        public void Speak(string textToSpeach)
+        public void Speak(string textToSpeech)
         {
-            _speechSynthesizer.Speak(textToSpeach);
+            _speechSynthesizer.Speak(textToSpeech);
         }
 
-        public void SpeakAsync(string textToSpeach)
+        public void SpeakAsync(string textToSpeech)
         {
-            _speechSynthesizer.SpeakAsync(textToSpeach);
+            _speechSynthesizer.SpeakAsync(textToSpeech);
         }
     }
 }

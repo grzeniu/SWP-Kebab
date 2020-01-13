@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Speech.Recognition;
 
 namespace AutomaticSpeechRecognition
 {
     public class RecognizedText
     {
-        //TODO replace var
-
-        public RecognizedText(string text, List<string> textList, float confidence)
+        public RecognizedText(RecognitionEventArgs recognitionResult)
         {
-            Text = text;
-            TextList = textList;
-            Confidence = confidence;
+            Text = recognitionResult.Result.Text;
+            TextList = Text.Split(' ').ToList();
+            Confidence = recognitionResult.Result.Confidence;
         }
 
         public string Text { get; }

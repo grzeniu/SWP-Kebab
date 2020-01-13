@@ -7,7 +7,7 @@ using TextToSpeech;
 
 namespace Kebab
 {
-    public partial class TextHandler : Window, IHandler
+    public class TextHandler : Window, ITextAnalyzer
     {
         private const double ConfidenceThreshold = 0.4;
         private bool _initiative = true;
@@ -23,7 +23,7 @@ namespace Kebab
             _mainWindow = mainWindow;
         }
 
-        public void Handle(RecognizedText text)
+        public void AnalyzeText(RecognizedText text)
         {
             if (text.Confidence >= ConfidenceThreshold)
             {
@@ -48,7 +48,6 @@ namespace Kebab
                     CalculateThePrice();
                     _mainWindow.SetLabels(_order);
                     _speaker.SpeakAsync($"Thank you for the order. It will be {_order.Price} dollars. Have a nice day!");
-                    //_speechSynthesizer.SpeakAsync("Dziękuję za zamówienie");
                     _speechRecognition.StopSpeech();
                 }
 
