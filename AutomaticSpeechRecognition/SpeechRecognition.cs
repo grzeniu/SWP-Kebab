@@ -8,20 +8,20 @@ namespace AutomaticSpeechRecognition
     {
         private readonly GrammarFactory _grammarFactory = new GrammarFactory();
         private SpeechRecognitionEngine _speechRecognitionEngine;
-        private readonly ITextAnalyzer _textAnalyzer;
         private const string GrammarFilePath = @"C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\AutomaticSpeechRecognition\Grammar\Grammar.xml";
-        public SpeechRecognition(ITextAnalyzer textAnalyzer)
-        {
-            _textAnalyzer = textAnalyzer;
-            Initialize();
-        }
-        private void Initialize()
+
+        public bool IsSpeechOn { get; private set; } = true;
+        public void StopSpeech() => IsSpeechOn = false;
+
+        public void Initialize(EventHandler<SpeechRecognizedEventArgs> kebabManager)
         {
             var culture = new CultureInfo("en-US");
             _speechRecognitionEngine = new SpeechRecognitionEngine(culture);
+            _speechRecognitionEngine.BabbleTimeout += TimeSpan.FromSeconds(2);
+            _speechRecognitionEngine.InitialSilenceTimeout += TimeSpan.FromSeconds(10);
             _speechRecognitionEngine.SetInputToDefaultAudioDevice();
             InitializeGrammars();
-            _speechRecognitionEngine.SpeechRecognized += KebabManager;
+            _speechRecognitionEngine.SpeechRecognized += kebabManager;
             _speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
         }
 
@@ -35,17 +35,5 @@ namespace AutomaticSpeechRecognition
             //grammar.Enabled = true;
             _speechRecognitionEngine.LoadGrammar(xmlGrammar);
         }
-        public void KebabManager(object sender, SpeechRecognizedEventArgs e)
-        {
-            if (!IsSpeechOn) return;
-            var result = new RecognizedText(e);
-
-            Console.WriteLine($@"ROZPOZNANO (wiarygodność: {result.Confidence:0.000}): '{result.Text}'");
-            _textAnalyzer.AnalyzeText(result);
-        }
-
-        public void StopSpeech() => IsSpeechOn = false;
-
-        public bool IsSpeechOn { get; private set; } = true;
     }
 }

@@ -10,12 +10,18 @@ namespace Kebab
     public partial class MainWindow
     {
         private readonly BackgroundWorker _worker = new BackgroundWorker();
-        private readonly Speaker _speaker = new Speaker();
-        private readonly TextHandler _textHandler;
+        private readonly ISpeaker _speaker;
+        private readonly ISpeechRecognition _speechRecognitionEngine;
+        private readonly ITextAnalyzer _textHandler;
+        private readonly IKebabManager _kebabManager;
 
         public MainWindow()
         {
-            _textHandler = new TextHandler();
+            _speaker = new Speaker();
+            _speechRecognitionEngine = new SpeechRecognition();
+            _kebabManager = new KebabManager(_speechRecognitionEngine, _textHandler);
+            _textHandler = new TextHandler(_speaker, _speechRecognitionEngine);
+
             InitializeComponent();
             _worker.DoWork += Run;
             _worker.RunWorkerAsync();
@@ -23,14 +29,12 @@ namespace Kebab
 
         private void Run(object sender, DoWorkEventArgs e)
         {
-
-            var speechRecognition = new SpeechRecognition(_textHandler);
-            _textHandler.Initialize(_speaker, speechRecognition, this);
+            _speechRecognitionEngine.Initialize(_kebabManager.ManageKebab);
+            _textHandler.ConnectToWindow(this);
 
             //TODO extarct method for this ? Or move to handler ? Text fetch from db
             _speaker.Speak("Welcome in intergalactic Pizzeria. Which pizza do you prefer?");
         }
-
         public void SetLabels(Order order)
         {
             Dispatcher?.Invoke(() =>

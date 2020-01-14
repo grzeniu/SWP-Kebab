@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using AutomaticSpeechRecognition;
 using TextToSpeech;
 
 namespace Kebab
 {
-    public class TextHandler : Window, ITextAnalyzer
+    public class TextHandler : ITextAnalyzer
     {
         private const double ConfidenceThreshold = 0.4;
         private bool _initiative = true;
         private readonly Order _order = new Order();
-        private Speaker _speaker;
-        private SpeechRecognition _speechRecognition;
+        private readonly ISpeaker _speaker;
+        private readonly ISpeechRecognition _speechRecognition;
         private MainWindow _mainWindow;
 
-        public void Initialize(Speaker speaker, SpeechRecognition speechRecognition, MainWindow mainWindow)
+        public TextHandler(ISpeaker speaker, ISpeechRecognition speechRecognition)
         {
             _speaker = speaker;
             _speechRecognition = speechRecognition;
+        }
+        public void ConnectToWindow(MainWindow mainWindow)
+        {
             _mainWindow = mainWindow;
         }
 
@@ -177,5 +179,6 @@ namespace Kebab
             }
 
         }
+
     }
 }

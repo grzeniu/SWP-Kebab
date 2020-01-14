@@ -89,6 +89,9 @@
     <Compile Include="Field.cs" />
     <Compile Include="Filled.cs" />
     <Compile Include="Form.cs" />
+    <Compile Include="IKebabManager.cs" />
+    <Compile Include="ITextAnalyzer.cs" />
+    <Compile Include="KebabManager.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Prompt.cs" />
     <Compile Include="TextHandler.cs" />

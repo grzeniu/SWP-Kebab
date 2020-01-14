@@ -1,9 +1,12 @@
-﻿using Microsoft.Speech.Recognition;
+﻿using System;
+using Microsoft.Speech.Recognition;
 
 namespace AutomaticSpeechRecognition
 {
     public interface ISpeechRecognition
     {
-        void KebabManager(object sender, SpeechRecognizedEventArgs e);
+        void Initialize(EventHandler<SpeechRecognizedEventArgs> kebabManager);
+        void StopSpeech();
+        bool IsSpeechOn { get; }
     }
 }
