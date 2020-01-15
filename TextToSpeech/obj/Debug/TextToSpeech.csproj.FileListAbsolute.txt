@@ -6,3 +6,11 @@ C:\Users\Grzesiek\Desktop\swp\p\Kebab\TextToSpeech\obj\Debug\TextToSpeech.csproj
 C:\Users\Grzesiek\Desktop\swp\p\Kebab\TextToSpeech\obj\Debug\TextToSpeech.csproj.CopyComplete
 C:\Users\Grzesiek\Desktop\swp\p\Kebab\TextToSpeech\obj\Debug\TextToSpeech.dll
 C:\Users\Grzesiek\Desktop\swp\p\Kebab\TextToSpeech\obj\Debug\TextToSpeech.pdb
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\bin\Debug\TextToSpeech.dll
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\bin\Debug\TextToSpeech.pdb
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\bin\Debug\Microsoft.Speech.dll
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\obj\Debug\TextToSpeech.csprojAssemblyReference.cache
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\obj\Debug\TextToSpeech.csproj.CoreCompileInputs.cache
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\obj\Debug\TextToSpeech.csproj.CopyComplete
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\obj\Debug\TextToSpeech.dll
+C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\TextToSpeech\obj\Debug\TextToSpeech.pdb

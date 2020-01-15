@@ -1,4 +1,5 @@
 ﻿using Microsoft.Speech.Synthesis;
+using System;
 
 namespace TextToSpeech
 {
@@ -17,6 +18,7 @@ namespace TextToSpeech
 
         public void Speak(string textToSpeech)
         {
+            Console.WriteLine("mowie "+textToSpeech);
             _speechSynthesizer.Speak(textToSpeech);
         }
 

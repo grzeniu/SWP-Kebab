@@ -18,7 +18,7 @@ namespace Kebab
             if (!_speechRecognition.IsSpeechOn) return;
             var result = new RecognizedText(e);
 
-            Console.WriteLine($@"ROZPOZNANO (wiarygodność: {result.Confidence:0.000}): '{result.Text}'");
+            Console.WriteLine($@"ROZPOZNANO (wiarygodność: {result.Confidence:0.000}): '{result.ToString()}'");
             _textAnalyzer.AnalyzeText(result);
         }
     }

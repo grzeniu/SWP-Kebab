@@ -19,8 +19,8 @@ namespace Kebab
         {
             _speaker = new Speaker();
             _speechRecognitionEngine = new SpeechRecognition();
-            _kebabManager = new KebabManager(_speechRecognitionEngine, _textHandler);
             _textHandler = new TextHandler(_speaker, _speechRecognitionEngine);
+            _kebabManager = new KebabManager(_speechRecognitionEngine, _textHandler);
 
             InitializeComponent();
             _worker.DoWork += Run;

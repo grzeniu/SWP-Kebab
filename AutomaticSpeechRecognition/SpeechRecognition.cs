@@ -15,8 +15,8 @@ namespace AutomaticSpeechRecognition
 
         public void Initialize(EventHandler<SpeechRecognizedEventArgs> kebabManager)
         {
-            var culture = new CultureInfo("en-US");
-            _speechRecognitionEngine = new SpeechRecognitionEngine(culture);
+            //var culture = new CultureInfo("en-US");
+            _speechRecognitionEngine = new SpeechRecognitionEngine();
             _speechRecognitionEngine.BabbleTimeout += TimeSpan.FromSeconds(2);
             _speechRecognitionEngine.InitialSilenceTimeout += TimeSpan.FromSeconds(10);
             _speechRecognitionEngine.SetInputToDefaultAudioDevice();
@@ -27,10 +27,6 @@ namespace AutomaticSpeechRecognition
 
         private void InitializeGrammars()
         {
-            _grammarFactory.BuildGrammars(_speechRecognitionEngine);
-
-            //TODO change to relative path
-            //Grammar grammar = new Grammar("C:\\Users\\Grzesiek\\Desktop\\swp\\SWP-Kebab\\AutomaticSpeechRecognition\\Grammar\\Grammar.xml", "rootRule");
             Grammar xmlGrammar = _grammarFactory.BuildXmlGrammar(GrammarFilePath);
             //grammar.Enabled = true;
             _speechRecognitionEngine.LoadGrammar(xmlGrammar);

@@ -6,7 +6,7 @@
 
       <prompt>Dzień dobry, czy chciałbyś kupić bilety do kina?</prompt>
 
-      <grammar src="YesOrNo.xml" type="application/grammar-xml" />
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
 
       <nomatch>
         <prompt>Nie zrozumiałam, proszę powtórz.</prompt>

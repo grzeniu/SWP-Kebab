@@ -11,32 +11,23 @@ namespace AutomaticSpeechRecognition
             "Reset"
         };
 
-        public static readonly IEnumerable<string> PizzaChoices = new List<string>(4)
+        public static readonly IEnumerable<string> Sauce = new List<string>(4)
         {
-            "peperoni",
-            "hawai",
-            "hawaiian",
-            "hawaiian pizza",
+            "łagodny",
+            "ostry"
         };
-        public static readonly IEnumerable<string> Dipps = new List<string>(7)
+        public static readonly IEnumerable<string> Kind = new List<string>(7)
         {
-            "garlic",
-            "garlic sauce",
-            "maxican",
-            "maxican sauce",
-            "arabian",
-            "arabian sauce",
-            "no sauce"
+            "w bułce",
+            "w cieście",
+            "belgijskie",
+            "standardowe"
         };
 
-        public static readonly IEnumerable<string> Cakes = new List<string>(6)
+        public static readonly IEnumerable<string> Meal = new List<string>(6)
         {
-            "thick",
-            "thick cake",
-            "thin",
-            "thin cake",
-            "medium",
-            "medium cake"
+            "kebaba",
+            "frytki"
         };
     }
 }

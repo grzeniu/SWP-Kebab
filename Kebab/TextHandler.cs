@@ -29,19 +29,18 @@ namespace Kebab
         {
             if (text.Confidence >= ConfidenceThreshold)
             {
-                Console.WriteLine(text.Text);
                 if (_initiative)
                 {
-                    ProcessHelpMessages(text.TextList);
-                    ProcessOrder(text.TextList);
-                    FillKnownProperties(text.TextList);
+                    //ProcessHelpMessages(text.TextList);
+                    //ProcessOrder(text.TextList);
+                    FillKnownProperties(text);
                     _initiative = false;
                 }
                 else
                 {
-                    FillKnownProperties(text.TextList);
-                    ProcessHelpMessages(text.TextList);
-                    ProcessOrder(text.TextList);
+                    FillKnownProperties(text);
+                    //ProcessHelpMessages(text.TextList);
+                    //ProcessOrder(text);
 
                 }
 
@@ -96,42 +95,50 @@ namespace Kebab
 
         private void ProcessPartialOrder(IReadOnlyCollection<string> textList)
         {
-            if (textList.Select(el => el).Intersect(Info.Cakes).ToList().Count == 0)
+            if (textList.Select(el => el).Intersect(Info.Meal).ToList().Count == 0)
             {
                 _speaker.SpeakAsync("And what kind of cake do you prefer?");
             }
-            else if (textList.Select(el => el).Intersect(Info.Dipps).ToList().Count == 0)
+            else if (textList.Select(el => el).Intersect(Info.Kind).ToList().Count == 0)
             {
                 _speaker.SpeakAsync("How about the sauce?");
             }
-            else if (textList.Select(el => el).Intersect(Info.PizzaChoices).ToList().Count == 0)
+            else if (textList.Select(el => el).Intersect(Info.Sauce).ToList().Count == 0)
             {
                 _speaker.SpeakAsync("Which pizza? For now we have only hawaiian or peperoni");
             }
         }
 
-        private void FillKnownProperties(IReadOnlyCollection<string> textList)
+        private void FillKnownProperties(RecognizedText recognizedText)
         {
-            var cakes = textList.Select(el => el).Intersect(Info.Cakes).FirstOrDefault();
-            var dips = textList.Select(el => el).Intersect(Info.Dipps).FirstOrDefault();
-            var choices = textList.Select(el => el).Intersect(Info.PizzaChoices).FirstOrDefault();
-
-            if (!string.IsNullOrEmpty(cakes))
+            if (!string.IsNullOrEmpty(recognizedText.Meal))
             {
-                _order.Cake = cakes;
+                _order.Cake = recognizedText.Meal;
             }
 
-            if (!string.IsNullOrEmpty(dips))
+            if (!string.IsNullOrEmpty(recognizedText.Kind))
             {
-                _order.Dip = dips;
+                _order.Dip = recognizedText.Kind;
             }
 
-            if (!string.IsNullOrEmpty(choices))
+            if (!string.IsNullOrEmpty(recognizedText.Sauce))
             {
-                _order.Choice = choices;
+                _order.Choice = recognizedText.Sauce;
             }
 
             _mainWindow.SetLabels(_order);
+        }
+
+        private string ListContainString(string text, IEnumerable<string> list)
+        {
+            foreach (string x in list)
+            {
+                if (text.Contains(x))
+                {
+                    return x;
+                }
+            }
+            return null;
         }
 
         private void ProcessHelpMessages(IReadOnlyCollection<string> textList)
