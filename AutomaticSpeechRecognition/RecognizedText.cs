@@ -11,6 +11,7 @@ namespace AutomaticSpeechRecognition
             Meal = recognitionResult.Result.Semantics["dish"].Value.ToString();
             Kind = recognitionResult.Result.Semantics["kind"].Value.ToString();
             Sauce = recognitionResult.Result.Semantics["sauce"].Value.ToString();
+            Default = recognitionResult.Result.Semantics["def"].Value.ToString();
             Confidence = recognitionResult.Result.Confidence;
         }
 
@@ -19,6 +20,8 @@ namespace AutomaticSpeechRecognition
         public string Kind { get; }
 
         public string Sauce { get; }
+
+        public string Default { get; }
 
         public float Confidence { get; }
 

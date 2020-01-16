@@ -33,15 +33,15 @@ namespace Kebab
             _textHandler.ConnectToWindow(this);
 
             //TODO extarct method for this ? Or move to handler ? Text fetch from db
-            _speaker.Speak("Welcome in intergalactic Pizzeria. Which pizza do you prefer?");
+            //_speaker.Speak("Welcome in intergalactic Pizzeria. Which pizza do you prefer?");
         }
         public void SetLabels(Order order)
         {
             Dispatcher?.Invoke(() =>
             {
-                pizzaNumber.Text = order.Choice;
-                pizzaCake.Text = order.Cake;
-                pizzaDip.Text = order.Dip;
+                pizzaNumber.Text = order.Meal;
+                pizzaCake.Text = order.Sauce;
+                pizzaDip.Text = order.Kind;
                 pizzaPrice.Text = order.Price;
             });
         }

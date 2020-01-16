@@ -3,17 +3,18 @@
   <rule id="rootRule">
     <item repeat="0-1"> Poprosze </item>
     <ruleref uri="#dish" />
-    <tag> 
+    <tag>
       out.dish=rules.dish.first;
       out.kind=rules.dish.second;
       out.sauce=rules.dish.third;
+      out.def=rules.dish.fourth;
     </tag>
   </rule>
 
   <rule id="dish">
     <one-of>
       <item>
-        kebaba <tag> out.first="kebaba";</tag>
+        kebaba <tag> out.first="kebab";</tag>
       </item>
       <item>
         frytki <tag> out.first="frytki"; </tag>
@@ -22,25 +23,25 @@
         kebaba w cieście <tag> out.first="kebab";out.second="ciasto"</tag>
       </item>
       <item>
-        w cieście <tag> out.second="ciasto";</tag>
+        w cieście <tag> out.first="kebab";out.second="ciasto";</tag>
       </item>
       <item>
         kebaba w bułce <tag> out.first="kebab";out.second="bułka";</tag>
       </item>
       <item>
-        w bułce <tag> out.second="bułka";</tag>
+        w bułce <tag> out.first="kebab";out.second="bułka";</tag>
       </item>
       <item>
         frytki belgijskie <tag> out.first="frytki";out.second="belgijskie"; </tag>
       </item>
       <item>
-        belgijskie <tag> out.second="belgijskie"; </tag>
+        belgijskie <tag> out.first="frytki";out.second="belgijskie"; </tag>
       </item>
       <item>
         frytki standardowe <tag> out.first="frytki";out.second="standardowe"; </tag>
       </item>
       <item>
-        standardowe <tag> out.second="standardowe"; </tag>
+        standardowe <tag> out.first="frytki";out.second="standardowe"; </tag>
       </item>  
       <item>
         kebaba w cieście łagodny sos<tag> out.first="kebab";out.second="ciasto";out.third="łagodny";</tag>
@@ -101,6 +102,12 @@
       </item>
       <item>
         ostry<tag> out.third="ostry"; </tag>
+      </item>
+      <item>
+        stop<tag> out.fourth="stop"; </tag>
+      </item>
+      <item>
+        reset<tag> out.fourth="reset"; </tag>
       </item>
     </one-of>
   </rule>

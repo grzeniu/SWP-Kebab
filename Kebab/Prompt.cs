@@ -1,4 +1,6 @@
-﻿namespace Kebab
+﻿using System;
+
+namespace Kebab
 {
     internal class Prompt
     {

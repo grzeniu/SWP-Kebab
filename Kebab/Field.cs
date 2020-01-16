@@ -12,12 +12,5 @@
         {
             Name = name;
         }
-
-        public void ExecuteField()
-        {
-            //Prompt.ReadMessage();
-            //ASR_Module.ASR.BuildGrammar(GrammarXmlFile);
-            //ASR_Module.ASR.StartRecognition();
-        }
     }
 }

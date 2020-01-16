@@ -9,103 +9,78 @@ namespace Kebab
     public class TextHandler : ITextAnalyzer
     {
         private const double ConfidenceThreshold = 0.4;
-        private bool _initiative = true;
         private readonly Order _order = new Order();
         private readonly ISpeaker _speaker;
         private readonly ISpeechRecognition _speechRecognition;
         private MainWindow _mainWindow;
+        private List<Form> _formList;
+        private Parser _parser;
+        private Form _currentForm;
 
         public TextHandler(ISpeaker speaker, ISpeechRecognition speechRecognition)
         {
             _speaker = speaker;
             _speechRecognition = speechRecognition;
+            _parser = new Parser();
+            _formList = _parser.ParseDocument();
         }
         public void ConnectToWindow(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
+            _currentForm = _formList[0];
+            FormInterpretationAlgorithm(_currentForm);
+        }
+
+        private void FormInterpretationAlgorithm(Form Form)
+        {
+            _currentForm = Form;
+            if (Form.Field != null)
+            {
+                _speaker.SpeakAsync(Form.Field.Prompt.Message);
+            }
+            else
+            {
+                _mainWindow.SetLabels(_order);
+                _speaker.Speak(Form.Block.Prompt.Message);
+                Environment.Exit(0);
+            }
         }
 
         public void AnalyzeText(RecognizedText text)
         {
             if (text.Confidence >= ConfidenceThreshold)
             {
-                if (_initiative)
+                if(text.Default != "")
                 {
-                    //ProcessHelpMessages(text.TextList);
-                    //ProcessOrder(text.TextList);
-                    FillKnownProperties(text);
-                    _initiative = false;
+                    ProcessHelpMessages(text);
                 }
+
                 else
                 {
                     FillKnownProperties(text);
-                    //ProcessHelpMessages(text.TextList);
-                    //ProcessOrder(text);
 
+                    String nextFormId = "default";
+                    if (_order.Meal != "" && text.Meal != "")
+                    {
+                        nextFormId = _currentForm.Field.Filled.Execute(text.Meal);
+                        _currentForm = _formList.Find(form => form.Id == nextFormId);
+                    }
+                    if (_order.Kind != "" && text.Kind != "")
+                    {
+                        nextFormId = _currentForm.Field.Filled.Execute(text.Kind);
+                        _currentForm = _formList.Find(form => form.Id == nextFormId);
+                    }
+                    if (_order.Sauce != "" && text.Sauce != "")
+                    {
+                        nextFormId = _currentForm.Field.Filled.Execute(text.Sauce);
+                        _currentForm = _formList.Find(form => form.Id == nextFormId);
+                    }
+                    FormInterpretationAlgorithm(_currentForm);
                 }
-
-                if (_order.OrderReady())
-                {
-                    CalculateThePrice();
-                    _mainWindow.SetLabels(_order);
-                    _speaker.SpeakAsync($"Thank you for the order. It will be {_order.Price} dollars. Have a nice day!");
-                    _speechRecognition.StopSpeech();
-                }
-
             }
             else
             {
-                _speaker.SpeakAsync($"Sorry I didn't get that.");
-            }
-        }
-
-        private void CalculateThePrice()
-        {
-            _order.Price = new Random().Next(20, 45).ToString();
-        }
-
-        private void ProcessOrder(IReadOnlyCollection<string> textList)
-        {
-            int noise = 0;
-            if (textList.Contains("sauce"))
-            {
-                noise++;
-            }
-
-            if (textList.Contains("pizza"))
-            {
-                noise++;
-            }
-
-            if (textList.Contains("cake"))
-            {
-                noise++;
-            }
-
-            switch (textList.Count - noise)
-            {
-                case 1:
-                    ProcessStepByStep();
-                    break;
-                case 2:
-                    ProcessPartialOrder(textList);
-                    break;
-            }
-        }
-
-        private void ProcessPartialOrder(IReadOnlyCollection<string> textList)
-        {
-            if (textList.Select(el => el).Intersect(Info.Meal).ToList().Count == 0)
-            {
-                _speaker.SpeakAsync("And what kind of cake do you prefer?");
-            }
-            else if (textList.Select(el => el).Intersect(Info.Kind).ToList().Count == 0)
-            {
-                _speaker.SpeakAsync("How about the sauce?");
-            }
-            else if (textList.Select(el => el).Intersect(Info.Sauce).ToList().Count == 0)
-            {
-                _speaker.SpeakAsync("Which pizza? For now we have only hawaiian or peperoni");
+                _speaker.SpeakAsync($"Proszę powtórzyć");
             }
         }
 
@@ -113,79 +88,44 @@ namespace Kebab
         {
             if (!string.IsNullOrEmpty(recognizedText.Meal))
             {
-                _order.Cake = recognizedText.Meal;
+                _order.Meal = recognizedText.Meal;
             }
 
             if (!string.IsNullOrEmpty(recognizedText.Kind))
             {
-                _order.Dip = recognizedText.Kind;
+                _order.Kind = recognizedText.Kind;
             }
 
             if (!string.IsNullOrEmpty(recognizedText.Sauce))
             {
-                _order.Choice = recognizedText.Sauce;
+                _order.Sauce = recognizedText.Sauce;
             }
 
             _mainWindow.SetLabels(_order);
         }
 
-        private string ListContainString(string text, IEnumerable<string> list)
+        private void ProcessHelpMessages(RecognizedText recognizedText)
         {
-            foreach (string x in list)
+            if (_formList.Any(a=>(a.IdEqualsIgnoreCase(recognizedText.Default))))
             {
-                if (text.Contains(x))
+                Form form = _formList.First(a => (a.IdEqualsIgnoreCase(recognizedText.Default)));
+                if (form.Id.Equals("Stop"))
                 {
-                    return x;
+                    _speechRecognition.StopSpeech();
+                    _mainWindow.SetLabels(_order);
+                    _speaker.Speak(form.Block.Prompt.Message);
+                    Environment.Exit(0);
                 }
+                else
+                {
+                    //reset
+                    _order.ResetPizza();
+                    _mainWindow.SetLabels(_order);
+                    _currentForm = _formList.Find(f => f.Id.Equals("Main"));
+                    FormInterpretationAlgorithm(_currentForm);
             }
-            return null;
-        }
-
-        private void ProcessHelpMessages(IReadOnlyCollection<string> textList)
-        {
-            if (textList.Contains("Stop"))
-            {
-                _speechRecognition.StopSpeech();
-                CalculateThePrice();
-                _mainWindow.SetLabels(_order);
-                _speaker.SpeakAsync("It was a pleasure to serve you. Have a nice day!");
-                return;
-            }
-
-            if (textList.Contains("Help"))
-            {
-                _speaker.SpeakAsync("Please order a pizza!");
-                return;
-            }
-
-            if (textList.Contains("Reset"))
-            {
-                _speaker.SpeakAsync("Resetting the order! You can order new one now.");
-                _order.ResetPizza();
-                _mainWindow.SetLabels(_order);
+                
             }
         }
-
-        private void ProcessStepByStep()
-        {
-            if (string.IsNullOrEmpty(_order.Cake))
-            {
-                _speaker.SpeakAsync("What kind of cake?");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(_order.Dip))
-            {
-                _speaker.SpeakAsync("Which sauce?");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(_order.Choice))
-            {
-                _speaker.SpeakAsync("Which pizza?");
-            }
-
-        }
-
     }
 }

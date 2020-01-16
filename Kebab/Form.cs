@@ -1,4 +1,6 @@
-﻿namespace Kebab
+﻿using System;
+
+namespace Kebab
 {
     internal class Form
     {
@@ -9,6 +11,11 @@
         public Form(string id)
         {
             Id = id;
+        }
+
+        public bool IdEqualsIgnoreCase(string text)
+        {
+            return string.Equals(Id, text, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
