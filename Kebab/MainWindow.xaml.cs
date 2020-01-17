@@ -31,18 +31,15 @@ namespace Kebab
         {
             _speechRecognitionEngine.Initialize(_kebabManager.ManageKebab);
             _textHandler.ConnectToWindow(this);
-
-            //TODO extarct method for this ? Or move to handler ? Text fetch from db
-            //_speaker.Speak("Welcome in intergalactic Pizzeria. Which pizza do you prefer?");
         }
         public void SetLabels(Order order)
         {
             Dispatcher?.Invoke(() =>
             {
-                pizzaNumber.Text = order.Meal;
-                pizzaCake.Text = order.Sauce;
-                pizzaDip.Text = order.Kind;
-                pizzaPrice.Text = order.Price;
+                orderMeal.Text = order.Meal;
+                orderSauce.Text = order.Sauce;
+                orderKind.Text = order.Kind;
+                orderPrice.Text = order.Price;
             });
         }
     }

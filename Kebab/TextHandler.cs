@@ -40,10 +40,16 @@ namespace Kebab
             }
             else
             {
+                CalculateThePrice();
                 _mainWindow.SetLabels(_order);
                 _speaker.Speak(Form.Block.Prompt.Message);
                 Environment.Exit(0);
             }
+        }
+
+        private void CalculateThePrice()
+        {
+            _order.Price = new Random().Next(20, 45).ToString();
         }
 
         public void AnalyzeText(RecognizedText text)
