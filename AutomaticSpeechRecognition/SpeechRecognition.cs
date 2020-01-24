@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using Microsoft.Speech.Recognition;
 
 namespace AutomaticSpeechRecognition
@@ -8,7 +7,7 @@ namespace AutomaticSpeechRecognition
     {
         private readonly GrammarFactory _grammarFactory = new GrammarFactory();
         private SpeechRecognitionEngine _speechRecognitionEngine;
-        private const string GrammarFilePath = @"C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\AutomaticSpeechRecognition\Grammar\Grammar.xml";
+        private const string GrammarFilePath = @"..\..\..\Grammar\Grammar.xml";
 
         public bool IsSpeechOn { get; private set; } = true;
         public void StopSpeech() => IsSpeechOn = false;

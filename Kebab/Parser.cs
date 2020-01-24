@@ -5,7 +5,7 @@ namespace Kebab
 {
     internal class Parser
     {
-        private readonly string _documentPath = @"C:\Users\Grzesiek\Desktop\swp\SWP-Kebab\Kebab\Dialogue\Dialogue.xml";
+        private readonly string _documentPath = @"..\..\..\Dialogue\Dialogue.xml";
         private readonly List<Form> _formList = new List<Form>();
 
         public List<Form> ParseDocument()
