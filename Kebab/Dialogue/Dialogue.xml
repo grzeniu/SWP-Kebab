@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xmlns:voxeo="http://community.voxeo.com/xmlns/vxml">
+
+  <form id="Main">
+    <field name="Order">
+
+      <prompt>Dzień dobry, co chciałby Pan zjeść?</prompt>
+
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
+
+      <nomatch>
+        <prompt>Proszę wybrać kebaba lub frytki.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled namelist="Order">
+        <if cond="Order == 'kebab'">
+          <goto next="#KindKebab"/>
+          <elseif cond="Order == 'frytki'"/>
+          <goto next="#KindFrytki"/>
+          <else/>
+          <goto next="#Meal"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+
+  <form id="Meal">
+    <field name="MealOrder">
+
+      <prompt>Proszę wybrać kebaba lub frytki</prompt>
+
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
+
+      <nomatch>
+        <prompt>Proszę wybrać kebaba lub frytki.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled namelist="MealOrder">
+        <if cond="MealOrder == 'kebab'">
+          <goto next="#KindKebab"/>
+          <elseif cond="MealOrder == 'frytki'"/>
+          <goto next="#KindFrytki"/>
+          <else/>
+          <goto next="#Meal"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+
+  <form id="KindKebab">
+    <field name="KebabKind">
+      <prompt>Woli Pan w cieście czy w bułce ?</prompt>
+
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
+
+      <nomatch>
+        <prompt>Nie zrozumiałam, proszę powtórz.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled namelist="KebabKind">
+        <if cond="KebabKind == 'ciasto'">
+          <goto next="#Sauce"/>
+          <elseif cond="KebabKind == 'bułka'"/>
+          <goto next="#Sauce"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+
+  <form id="KindFrytki">
+    <field name="FrytkiKind">
+      <prompt>Woli Pan belgijskie czy standardowe ?</prompt>
+
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
+
+      <nomatch>
+        <prompt>Nie zrozumiałam, proszę powtórz.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled namelist="FrytkiKind">
+        <if cond="FrytkiKind == 'belgijskie'">
+          <goto next="#Sauce"/>
+          <elseif cond="FrytkiKind == 'standardowe'"/>
+          <goto next="#Sauce"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+
+  <form id="Sauce">
+    <field name="OrderSauce">
+      <prompt>jaki sos do tego?</prompt>
+
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
+
+      <nomatch>
+        <prompt>Nie zrozumiałam, proszę powtórz.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled namelist="OrderSauce">
+        <if cond="OrderSauce == 'łagodny'">
+          <goto next="#GoodEnd"/>
+          <elseif cond="OrderSauce == 'ostry'"/>
+          <goto next="#GoodEnd"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+
+  <form id="Reset">
+    <block>
+      <prompt>Złóż zamówienie ponownie.</prompt>
+    </block>
+  </form>
+
+  <form id="Stop">
+    <block>
+      <prompt>Do zobaczenia</prompt>
+    </block>
+  </form>
+
+  <form id="GoodEnd">
+    <block>
+      <prompt>Dziękujemy za złożenie zamówienia, nasz turecki kolega już pracuje nad twoim zamówieniem.</prompt>
+    </block>
+  </form>
+</vxml>
+
+

@@ -1,0 +1,114 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule"
+ xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="rootRule">
+    <item repeat="0-1"> Poprosze </item>
+    <ruleref uri="#dish" />
+    <tag>
+      out.dish=rules.dish.first;
+      out.kind=rules.dish.second;
+      out.sauce=rules.dish.third;
+      out.def=rules.dish.fourth;
+    </tag>
+  </rule>
+
+  <rule id="dish">
+    <one-of>
+      <item>
+        kebaba <tag> out.first="kebab";</tag>
+      </item>
+      <item>
+        frytki <tag> out.first="frytki"; </tag>
+      </item>
+      <item>
+        kebaba w cieście <tag> out.first="kebab";out.second="ciasto"</tag>
+      </item>
+      <item>
+        w cieście <tag> out.first="kebab";out.second="ciasto";</tag>
+      </item>
+      <item>
+        kebaba w bułce <tag> out.first="kebab";out.second="bułka";</tag>
+      </item>
+      <item>
+        w bułce <tag> out.first="kebab";out.second="bułka";</tag>
+      </item>
+      <item>
+        frytki belgijskie <tag> out.first="frytki";out.second="belgijskie"; </tag>
+      </item>
+      <item>
+        belgijskie <tag> out.first="frytki";out.second="belgijskie"; </tag>
+      </item>
+      <item>
+        frytki standardowe <tag> out.first="frytki";out.second="standardowe"; </tag>
+      </item>
+      <item>
+        standardowe <tag> out.first="frytki";out.second="standardowe"; </tag>
+      </item>  
+      <item>
+        kebaba w cieście łagodny sos<tag> out.first="kebab";out.second="ciasto";out.third="łagodny";</tag>
+      </item>
+      <item>
+        kebaba w cieście ostry sos<tag> out.first="kebab";out.second="ciasto";out.third="ostry";</tag>
+      </item>
+      <item>
+        kebaba w bułce łagodny sos<tag> out.first="kebab";out.second="bułka";out.third="łagodny";</tag>
+      </item>
+      <item>
+        kebaba w bułce ostry sos<tag> out.first="kebab";out.second="bułka";out.third="ostry";</tag>
+      </item>
+      <item>
+        frytki belgijskie łagodny sos<tag> out.first="frytki";out.second="belgijskie";out.third="łagodny"; </tag>
+      </item>
+      <item>
+        frytki belgijskie ostry sos<tag> out.first="frytki";out.second="belgijskie";out.third="ostry"; </tag>
+      </item>
+      <item>
+        frytki standardowe łagodny sos<tag> out.first="frytki";out.second="standardowe";out.third="łagodny"; </tag>
+      </item>
+      <item>
+        frytki standardowe ostry sos<tag> out.first="frytki";out.second="standardowe";out.third="ostry"; </tag>
+      </item>
+      <item>
+        w cieście łagodny sos<tag> out.first="kebab";out.second="ciasto";out.third="łagodny";</tag>
+      </item>
+      <item>
+        w cieście ostry sos<tag> out.first="kebab";out.second="ciasto";out.third="ostry";</tag>
+      </item>
+      <item>
+        w bułce łagodny sos<tag> out.first="kebab";out.second="bułka";out.third="łagodny";</tag>
+      </item>
+      <item>
+        w bułce ostry sos<tag> out.first="kebab";out.second="bułka";out.third="ostry";</tag>
+      </item>
+      <item>
+        belgijskie łagodny sos<tag> out.first="frytki";out.second="belgijskie";out.third="łagodny"; </tag>
+      </item>
+      <item>
+        belgijskie ostry sos<tag> out.first="frytki";out.second="belgijskie";out.third="ostry"; </tag>
+      </item>
+      <item>
+        standardowe łagodny sos<tag> out.first="frytki";out.second="standardowe";out.third="łagodny"; </tag>
+      </item>
+      <item>
+        standardowe ostry sos<tag> out.first="frytki";out.second="standardowe";out.third="ostry"; </tag>
+      </item>
+      <item>
+        łagodny sos <tag> out.third="łagodny"; </tag>
+      </item>
+      <item>
+        ostry sos <tag> out.third="ostry"; </tag>
+      </item>
+      <item>
+        łagodny <tag> out.third="łagodny"; </tag>
+      </item>
+      <item>
+        ostry<tag> out.third="ostry"; </tag>
+      </item>
+      <item>
+        stop<tag> out.fourth="stop"; </tag>
+      </item>
+      <item>
+        reset<tag> out.fourth="reset"; </tag>
+      </item>
+    </one-of>
+  </rule>
+</grammar>
