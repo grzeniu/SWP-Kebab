@@ -13,3 +13,6 @@ applicationhost.config
 
 # Visual Studio cache/options directory
 .vs/
+
+# Packages
+/packages

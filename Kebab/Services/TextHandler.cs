@@ -4,7 +4,7 @@ using System.Linq;
 using AutomaticSpeechRecognition;
 using TextToSpeech;
 
-namespace Kebab
+namespace Kebab.Services
 {
     public class TextHandler : ITextAnalyzer
     {
@@ -13,16 +13,15 @@ namespace Kebab
         private readonly ISpeaker _speaker;
         private readonly ISpeechRecognition _speechRecognition;
         private MainWindow _mainWindow;
-        private List<Form> _formList;
-        private Parser _parser;
+        private readonly List<Form> _formList;
         private Form _currentForm;
 
         public TextHandler(ISpeaker speaker, ISpeechRecognition speechRecognition)
         {
             _speaker = speaker;
             _speechRecognition = speechRecognition;
-            _parser = new Parser();
-            _formList = _parser.ParseDocument();
+            var parser = new Parser();
+            _formList = parser.ParseDocument();
         }
         public void ConnectToWindow(MainWindow mainWindow)
         {
@@ -56,7 +55,7 @@ namespace Kebab
         {
             if (text.Confidence >= ConfidenceThreshold)
             {
-                if(text.Default != "")
+                if (text.Default != "")
                 {
                     ProcessHelpMessages(text);
                 }
@@ -112,7 +111,7 @@ namespace Kebab
 
         private void ProcessHelpMessages(RecognizedText recognizedText)
         {
-            if (_formList.Any(a=>(a.IdEqualsIgnoreCase(recognizedText.Default))))
+            if (_formList.Any(a => (a.IdEqualsIgnoreCase(recognizedText.Default))))
             {
                 Form form = _formList.First(a => (a.IdEqualsIgnoreCase(recognizedText.Default)));
                 if (form.Id.Equals("Stop"))
@@ -129,8 +128,8 @@ namespace Kebab
                     _mainWindow.SetLabels(_order);
                     _currentForm = _formList.Find(f => f.Id.Equals("Main"));
                     FormInterpretationAlgorithm(_currentForm);
-            }
-                
+                }
+
             }
         }
     }

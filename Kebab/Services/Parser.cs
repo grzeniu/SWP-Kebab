@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 
-namespace Kebab
+namespace Kebab.Services
 {
     internal class Parser
     {
@@ -24,6 +24,12 @@ namespace Kebab
                         formTag = new Form(reader.GetAttribute("id"));
                         _formList.Add(formTag);
                     }
+
+                    if (formTag == null)
+                    {
+                        break;
+                    }
+
                     if (reader.Name == "field")
                     {
                         formTag.Field = new Field(reader.GetAttribute("name"));

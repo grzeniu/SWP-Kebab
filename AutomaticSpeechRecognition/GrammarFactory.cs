@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Speech.Recognition;
+﻿using Microsoft.Speech.Recognition;
 using Microsoft.Speech.Recognition.SrgsGrammar;
 
 namespace AutomaticSpeechRecognition

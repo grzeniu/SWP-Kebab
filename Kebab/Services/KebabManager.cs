@@ -2,7 +2,7 @@
 using AutomaticSpeechRecognition;
 using Microsoft.Speech.Recognition;
 
-namespace Kebab
+namespace Kebab.Services
 {
     internal class KebabManager : IKebabManager
     {

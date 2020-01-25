@@ -1,6 +1,6 @@
 ﻿using Microsoft.Speech.Recognition;
 
-namespace Kebab
+namespace Kebab.Services
 {
     public interface IKebabManager
     {

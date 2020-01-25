@@ -1,6 +1,6 @@
 ﻿using AutomaticSpeechRecognition;
 
-namespace Kebab
+namespace Kebab.Services
 {
     public interface ITextAnalyzer
     {
