@@ -96,10 +96,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Block.cs" />
-    <Compile Include="Database\DatabaseFactory.cs" />
+    <Compile Include="Database\DatabaseRepository.cs" />
+    <Compile Include="Database\Data\KebabDbContext.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Filled.cs" />
     <Compile Include="Form.cs" />
+    <Compile Include="Mappers\OrderMapper.cs" />
     <Compile Include="Services\IKebabManager.cs" />
     <Compile Include="Services\ITextAnalyzer.cs" />
     <Compile Include="Services\KebabManager.cs" />
@@ -153,7 +155,6 @@
     <Resource Include="Dialogue\Dialogue.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database\Data\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
