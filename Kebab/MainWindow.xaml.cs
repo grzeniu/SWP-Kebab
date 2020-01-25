@@ -11,16 +11,15 @@ namespace Kebab
     public partial class MainWindow
     {
         private readonly BackgroundWorker _worker = new BackgroundWorker();
-        private readonly ISpeaker _speaker;
         private readonly ISpeechRecognition _speechRecognitionEngine;
         private readonly ITextAnalyzer _textHandler;
         private readonly IKebabManager _kebabManager;
 
         public MainWindow()
         {
-            _speaker = new Speaker();
+            ISpeaker speaker = new Speaker();
             _speechRecognitionEngine = new SpeechRecognition();
-            _textHandler = new TextHandler(_speaker, _speechRecognitionEngine);
+            _textHandler = new TextHandler(speaker, _speechRecognitionEngine);
             _kebabManager = new KebabManager(_speechRecognitionEngine, _textHandler);
 
             InitializeComponent();

@@ -30,18 +30,18 @@ namespace Kebab.Services
             FormInterpretationAlgorithm(_currentForm);
         }
 
-        private void FormInterpretationAlgorithm(Form Form)
+        private void FormInterpretationAlgorithm(Form form)
         {
-            _currentForm = Form;
-            if (Form.Field != null)
+            _currentForm = form;
+            if (form.Field != null)
             {
-                _speaker.SpeakAsync(Form.Field.Prompt.Message);
+                _speaker.SpeakAsync(form.Field.Prompt.Message);
             }
             else
             {
                 CalculateThePrice();
                 _mainWindow.SetLabels(_order);
-                _speaker.Speak(Form.Block.Prompt.Message);
+                _speaker.Speak(form.Block.Prompt.Message);
                 Environment.Exit(0);
             }
         }
@@ -64,7 +64,7 @@ namespace Kebab.Services
                 {
                     FillKnownProperties(text);
 
-                    String nextFormId = "default";
+                    string nextFormId;
                     if (_order.Meal != "" && text.Meal != "")
                     {
                         nextFormId = _currentForm.Field.Filled.Execute(text.Meal);
