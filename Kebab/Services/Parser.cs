@@ -53,13 +53,10 @@ namespace Kebab.Services
                     {
                         formTag.Field.GrammarXmlFile = reader.GetAttribute("src");
                     }
-                    if (reader.Name == "nomatch")
+                    if (reader.Name == "nomatch" && formTag.Field != null && formTag.Field.NoMatch == null)
                     {
-                        if (formTag.Field != null && formTag.Field.NoMatch == null)
-                        {
-                            reader.ReadToDescendant("prompt");
-                            formTag.Field.NoMatch = new Prompt(reader.ReadString());
-                        }
+                        reader.ReadToDescendant("prompt");
+                        formTag.Field.NoMatch = new Prompt(reader.ReadString());
                     }
                     if (reader.Name == "filled")
                     {
