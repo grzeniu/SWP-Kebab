@@ -97,6 +97,7 @@
     </ApplicationDefinition>
     <Compile Include="Block.cs" />
     <Compile Include="Database\DatabaseRepository.cs" />
+    <Compile Include="Database\DataFactory.cs" />
     <Compile Include="Database\Data\KebabDbContext.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Filled.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="Services\ITextAnalyzer.cs" />
     <Compile Include="Services\KebabManager.cs" />
     <Compile Include="Database\Models\Metadata.cs" />
-    <Compile Include="Database\Models\Order.cs" />
+    <Compile Include="Database\Models\OrderDto.cs" />
     <Compile Include="Services\Parser.cs" />
     <Compile Include="Prompt.cs" />
     <Compile Include="Services\TextHandler.cs" />

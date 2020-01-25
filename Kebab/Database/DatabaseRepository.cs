@@ -23,6 +23,11 @@ namespace Kebab.Database
             KebabDb.SaveChanges();
         }
 
+        public static void ClearMetadata()
+        {
+            KebabDb.Database.ExecuteSqlCommand("delete from Metadatas");
+        }
+
         public static List<Metadata> GetMetadatas()
         {
             return KebabDb.Metadatas.Select(e => e).ToList();
