@@ -7,7 +7,7 @@ namespace AutomaticSpeechRecognition
     {
         private readonly GrammarFactory _grammarFactory = new GrammarFactory();
         private SpeechRecognitionEngine _speechRecognitionEngine;
-        private const string GrammarFilePath = @"..\..\..\Grammar\Grammar.xml";
+        private const string GrammarFilePath = @"..\..\..\..\AutomaticSpeechRecognition\Grammar\Grammar.xml";
 
         public bool IsSpeechOn { get; private set; } = true;
         public void StopSpeech() => IsSpeechOn = false;

@@ -24,12 +24,6 @@ namespace Kebab.Services
                         formTag = new Form(reader.GetAttribute("id"));
                         _formList.Add(formTag);
                     }
-
-                    if (formTag == null)
-                    {
-                        break;
-                    }
-
                     if (reader.Name == "field")
                     {
                         formTag.Field = new Field(reader.GetAttribute("name"));
@@ -53,10 +47,13 @@ namespace Kebab.Services
                     {
                         formTag.Field.GrammarXmlFile = reader.GetAttribute("src");
                     }
-                    if (reader.Name == "nomatch" && formTag.Field != null && formTag.Field.NoMatch == null)
+                    if (reader.Name == "nomatch")
                     {
-                        reader.ReadToDescendant("prompt");
-                        formTag.Field.NoMatch = new Prompt(reader.ReadString());
+                        if (formTag.Field != null && formTag.Field.NoMatch == null)
+                        {
+                            reader.ReadToDescendant("prompt");
+                            formTag.Field.NoMatch = new Prompt(reader.ReadString());
+                        }
                     }
                     if (reader.Name == "filled")
                     {

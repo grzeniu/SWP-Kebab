@@ -11,12 +11,12 @@ namespace AutomaticSpeechRecognition
             "Reset"
         };
 
-        public static readonly IEnumerable<string> Sauce = new List<string>(2)
+        public static readonly IEnumerable<string> Sauce = new List<string>(4)
         {
             "łagodny",
             "ostry"
         };
-        public static readonly IEnumerable<string> Kind = new List<string>(4)
+        public static readonly IEnumerable<string> Kind = new List<string>(7)
         {
             "w bułce",
             "w cieście",
@@ -24,7 +24,7 @@ namespace AutomaticSpeechRecognition
             "standardowe"
         };
 
-        public static readonly IEnumerable<string> Meal = new List<string>(2)
+        public static readonly IEnumerable<string> Meal = new List<string>(6)
         {
             "kebaba",
             "frytki"
