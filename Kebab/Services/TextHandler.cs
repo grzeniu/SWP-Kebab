@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutomaticSpeechRecognition;
+using Kebab.Database;
 using TextToSpeech;
 
 namespace Kebab.Services
@@ -39,10 +40,18 @@ namespace Kebab.Services
             }
             else
             {
-                CalculateThePrice();
-                _mainWindow.SetLabels(_order);
-                _speaker.Speak(form.Block.Prompt.Message);
-                Environment.Exit(0);
+                if (form.Id.Equals("GoodEnd"))
+                {
+                    CalculateThePrice();
+                    _mainWindow.SetLabels(_order);
+                    DatabaseRepository.AddOrder(_order);
+                    _speaker.Speak(form.Block.Prompt.Message);
+                    Environment.Exit(0);
+                }
+                if (form.Id.Equals("Reset"))
+                {
+                    ResetOrder();
+                }
             }
         }
 
@@ -62,23 +71,27 @@ namespace Kebab.Services
 
                 else
                 {
+                    if (_order.Meal == "" && text.Meal != "")
+                    {
+                        SetNewCurrentForm(text.Meal);
+                    }
+                    if (_order.Kind == "" && text.Kind != "")
+                    {
+                        SetNewCurrentForm(text.Kind);
+                        if(_order.Sauce != "")
+                        {
+                            SetNewCurrentForm(_order.Sauce);
+                        }
+                    }
+                    if (_order.Sauce == "" && text.Sauce != "")
+                    {
+                        SetNewCurrentForm(text.Sauce);
+                    }
                     FillKnownProperties(text);
 
-                    string nextFormId;
-                    if (_order.Meal != "" && text.Meal != "")
+                    if (_order.OrderReady() && text.Confirmation != "")
                     {
-                        nextFormId = _currentForm.Field.Filled.Execute(text.Meal);
-                        _currentForm = _formList.Find(form => form.Id == nextFormId);
-                    }
-                    if (_order.Kind != "" && text.Kind != "")
-                    {
-                        nextFormId = _currentForm.Field.Filled.Execute(text.Kind);
-                        _currentForm = _formList.Find(form => form.Id == nextFormId);
-                    }
-                    if (_order.Sauce != "" && text.Sauce != "")
-                    {
-                        nextFormId = _currentForm.Field.Filled.Execute(text.Sauce);
-                        _currentForm = _formList.Find(form => form.Id == nextFormId);
+                        SetNewCurrentForm(text.Confirmation);
                     }
                     FormInterpretationAlgorithm(_currentForm);
                 }
@@ -87,6 +100,12 @@ namespace Kebab.Services
             {
                 _speaker.SpeakAsync($"Proszę powtórzyć");
             }
+        }
+
+        private void SetNewCurrentForm(string key)
+        {
+            string nextFormId = _currentForm.Field.Filled.Execute(key);
+            _currentForm = _formList.Find(form => form.Id == nextFormId);
         }
 
         private void FillKnownProperties(RecognizedText recognizedText)
@@ -123,14 +142,18 @@ namespace Kebab.Services
                 }
                 else
                 {
-                    //reset
-                    _order.ResetPizza();
-                    _mainWindow.SetLabels(_order);
-                    _currentForm = _formList.Find(f => f.Id.Equals("Main"));
-                    FormInterpretationAlgorithm(_currentForm);
+                    ResetOrder();
                 }
 
             }
+        }
+
+        private void ResetOrder()
+        {
+            _order.ResetOrder();
+            _mainWindow.SetLabels(_order);
+            _currentForm = _formList.Find(f => f.Id.Equals("Main"));
+            _speaker.Speak(_currentForm.Field.Prompt.Message);
         }
     }
 }

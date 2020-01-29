@@ -12,6 +12,7 @@ namespace AutomaticSpeechRecognition
             Kind = recognitionResult.Result.Semantics["kind"].Value.ToString();
             Sauce = recognitionResult.Result.Semantics["sauce"].Value.ToString();
             Default = recognitionResult.Result.Semantics["def"].Value.ToString();
+            Confirmation = recognitionResult.Result.Semantics["confirmation"].Value.ToString();
             Confidence = recognitionResult.Result.Confidence;
         }
 
@@ -22,6 +23,8 @@ namespace AutomaticSpeechRecognition
         public string Sauce { get; }
 
         public string Default { get; }
+
+        public string Confirmation { get; }
 
         public float Confidence { get; }
 

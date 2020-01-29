@@ -104,8 +104,31 @@
 
       <filled namelist="OrderSauce">
         <if cond="OrderSauce == 'łagodny'">
-          <goto next="#GoodEnd"/>
+          <goto next="#Confirm"/>
           <elseif cond="OrderSauce == 'ostry'"/>
+          <goto next="#Confirm"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+
+  <form id="Confirm">
+    <field name="Confirmation">
+      <prompt>Chcesz potwierdzić zamówienie</prompt>
+
+      <grammar src="Grammar.xml" type="application/grammar-xml" />
+
+      <nomatch>
+        <prompt>Nie zrozumiałam, proszę powtórz.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled namelist="Confirmation" >
+        <if cond="Confirmation == 'tak'">
+          <goto next="#GoodEnd"/>
+          <elseif cond="Confirmation == 'nie'"/>
+          <goto next="#Reset"/>
+          <else/>
           <goto next="#GoodEnd"/>
         </if>
       </filled>

@@ -8,6 +8,7 @@
       out.kind=rules.dish.second;
       out.sauce=rules.dish.third;
       out.def=rules.dish.fourth;
+      out.confirmation=rules.dish.fifth;
     </tag>
   </rule>
 
@@ -108,6 +109,12 @@
       </item>
       <item>
         reset<tag> out.fourth="reset"; </tag>
+      </item>
+      <item>
+        tak<tag> out.fifth="tak"; </tag>
+      </item>
+      <item>
+        nie<tag> out.fifth="nie"; </tag>
       </item>
     </one-of>
   </rule>

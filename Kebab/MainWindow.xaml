@@ -27,6 +27,9 @@
         <TextBlock Grid.Row="1" Grid.Column="1" Margin="10"><Run Text="Danie"/><Run Text=": "/></TextBlock>
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Rodzaj:" Margin="10"/>
         <TextBlock Grid.Row="3" Grid.Column="1" Margin="10"><Run Text="Sos"/><Run Text=":"/></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="10"><Run Text="Kebab \ Frytki"/></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="3" Text="Bułka\Ciasto ,Belgijskie\Standardowe" Margin="10" FontSize="24"/>
+        <TextBlock Grid.Row="3" Grid.Column="3" Margin="10"><Run Text="Łagodny \ Ostry"/></TextBlock>
         <TextBlock Grid.Row="4" Grid.Column="1" Text="Cena:" Margin="10"/>
         <TextBlock Grid.Row="5" Grid.Column="3" FontSize="23" FontFamily="Viner Hand ITC"><Run Text="Best in town"/><Run Text="                    Reset/Stop"/></TextBlock>
         <TextBox Grid.Row="1" Grid.Column="2" x:Name="orderMeal" Width="200" Margin="10"/>

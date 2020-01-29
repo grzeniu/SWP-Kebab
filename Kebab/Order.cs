@@ -7,7 +7,7 @@
         public string Sauce { get; set; } = "";
         public string Price { get; set; }
 
-        public void ResetPizza()
+        public void ResetOrder()
         {
             Meal = "";
             Kind = "";

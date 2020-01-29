@@ -6,9 +6,9 @@ namespace Kebab.Database
     {
         public static void CreateMetadata()
         {
-            DatabaseRepository.ClearMetadata();
+            //DatabaseRepository.ClearMetadata();
             // To be implemented specific metadata
-            DatabaseRepository.AddMetadata(new Metadata { Label = "XML", Value = "true" });
+            //DatabaseRepository.AddMetadata(new Metadata { Label = "XML", Value = "true" });
 
         }
         public static void CreateSampleOrders()
